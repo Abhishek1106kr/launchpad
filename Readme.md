@@ -17,7 +17,7 @@ npm install bcryptjs cors dotenv express jsonwebtoken mongoose
 # 4. Start the backend server
 npm start
 
-# Make sure you create a .env file in the backend folder with:
+# Make sure you create a .env file in the backend folder with:(for now it is in backend folder)
 # MONGO_URI=your_mongodb_connection_string
 # JWT_SECRET=your_jwt_secret
 # PORT=5000
