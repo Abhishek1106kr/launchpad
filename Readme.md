@@ -34,5 +34,3 @@ npm install
 # 7. Start the frontend development server
 npm start
 
-# If using proxy, add this line to frontend/package.json:
-# "proxy": "http://localhost:5000"
