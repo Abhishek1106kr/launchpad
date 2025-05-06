@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background-color: rgb(163, 139, 139);
+}
+
+.header-bar{
+  border: 5px solid aqua;
+  height: 40px;
+  width: 100%;
+  background-color: aqua;
+  border-radius: 2px;
+}
