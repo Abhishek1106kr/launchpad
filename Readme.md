@@ -18,9 +18,9 @@ npm install bcryptjs cors dotenv express jsonwebtoken mongoose
 npm start
 
 # Make sure you create a .env file in the backend folder with:(for now it is in backend folder)
-# MONGO_URI=your_mongodb_connection_string
-# JWT_SECRET=your_jwt_secret
-# PORT=5000
+MONGO_URI=mongodb+srv://belalaamirkhan:baZ3nUTBMmAvBNlj@cluster0.1sco7s6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=mystrongsecretkey123
+PORT=5002
 
 
 # === Frontend Setup ===
@@ -28,8 +28,19 @@ npm start
 # 5. Open a new terminal tab/window and go to frontend folder
 cd frontend
 
+# 7️⃣ Initialize frontend project (if not already done)
+npm init -y
+
+# 8️⃣ Install frontend packages
+npm install react react-dom react-icons react-router-dom axios
+
+# 9️⃣ Install development dependencies
+npm install --save-dev eslint @vitejs/plugin-react vite
+
 # 6. Install frontend packages
 npm install
+
+add the dev in the package.json if not have { "dev" : vite }
 
 # 7. Start the frontend development server
 npm start
