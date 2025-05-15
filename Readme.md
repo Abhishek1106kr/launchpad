@@ -2,9 +2,11 @@
 
 ## === Backend Setup ===
 
-```bash
+
 # 1️⃣ Go to backend folder
-cd backend 
+```bash
+cd backend
+```
 
 # 2️⃣ Initialize Node.js project (if not already done)
 npm init -y
@@ -21,7 +23,7 @@ npm install bcryptjs cors dotenv express jsonwebtoken mongoose
 
 # 5️⃣ Start the backend server
 npm start
-```
+
 
 🛠️ **Create a `.env` file in the `backend` folder with the following:**
 
