@@ -14,8 +14,9 @@ npm install bcryptjs cors dotenv express jsonwebtoken mongoose
 # 4️⃣ Modify package.json to add the start script:
 # Inside package.json:
 "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
-}
+  }
 
 # 5️⃣ Start the backend server
 npm start
