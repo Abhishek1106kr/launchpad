@@ -1,0 +1,593 @@
+:root {
+    --primary-color: #4caf50;
+    --primary-light: #81c784;
+    --primary-dark: #388e3c;
+    --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+    --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+    --text-dark: #222;
+    --text-medium: #555;
+    --text-light: #777;
+    --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --card-border: rgba(255, 255, 255, 0.4);
+    --error-color: #f44336;
+    --success-color: #4caf50;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+    --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 20px;
+    --border-radius-full: 50%;
+}
+
+/* Base styling with enhanced background */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    padding: 20px;
+}
+
+/* Animated background */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Enhanced glassmorphic card with floating effect */
+.login-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    padding: 40px;
+    width: 100%;
+    max-width: 380px; /* Slightly smaller than signup */
+    color: var(--text-dark);
+    animation: fadeIn 0.6s ease, float 6s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Card animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Decorative elements */
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    border-radius: var(--border-radius-full);
+    background: rgba(76, 175, 80, 0.2);
+    z-index: -1;
+}
+
+.login-card::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 120px;
+    height: 120px;
+    border-radius: var(--border-radius-full);
+    background: rgba(76, 175, 80, 0.15);
+    z-index: -1;
+}
+
+/* Logo section */
+.login-logo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.login-logo img {
+    max-height: 60px;
+    margin-bottom: 5px;
+}
+
+/* Title with underline animation */
+.login-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.login-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 3px;
+    animation: expandWidth 1s ease forwards;
+}
+
+@keyframes expandWidth {
+    from {
+        width: 0;
+    }
+    to {
+        width: 60px;
+    }
+}
+
+/* Login method tabs styling */
+.login-method-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-radius: var(--border-radius-md);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    border: 1px solid var(--card-border);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 10px;
+    background: transparent;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    color: var(--text-medium);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tab-btn svg {
+    transition: var(--transition-fast);
+}
+
+.tab-btn.active {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--primary-color);
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.tab-btn:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.tab-btn.active svg {
+    color: var(--primary-color);
+}
+
+/* Form group with improved spacing and labels */
+.form-group {
+    margin-bottom: 22px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-medium);
+    font-size: 14px;
+    transition: var(--transition-fast);
+}
+
+/* Enhanced form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    width: 100%;
+    padding: 14px 16px;
+    padding-right: 40px; /* Space for icon */
+    border-radius: var(--border-radius-md);
+    border: 1px solid #d0d0d0;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: var(--transition-normal);
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* OTP specific styling */
+.otp-input {
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Input focus animations */
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    background-color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Input hover effect */
+input:hover:not(:focus) {
+    border-color: #aaa;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Input disabled state */
+input:disabled {
+    background-color: rgba(240, 240, 240, 0.8);
+    color: var(--text-light);
+    cursor: not-allowed;
+}
+
+/* Input icons for fields */
+.input-icon {
+    position: absolute;
+    right: 15px;
+    top: 42px;
+    color: var(--text-light);
+    transition: var(--transition-fast);
+}
+
+.form-group:focus-within .input-icon {
+    color: var(--primary-color);
+}
+
+/* Remember me & forgot password row */
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Checkbox styling */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-group label {
+    font-size: 14px;
+    color: var(--text-medium);
+    cursor: pointer;
+}
+
+/* Forgot password link */
+.forgot-password {
+    font-size: 14px;
+    color: var(--text-medium);
+    text-decoration: none;
+    transition: var(--transition-fast);
+    position: relative;
+}
+
+.forgot-password:hover {
+    color: var(--primary-color);
+}
+
+.forgot-password::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.forgot-password:hover::after {
+    width: 100%;
+}
+
+/* Improved login button with pulse effect */
+.butt-login {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-gradient);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.butt-login:hover {
+    background: var(--primary-hover-gradient);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.butt-login:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Button disabled state */
+.butt-login:disabled {
+    background: linear-gradient(135deg, #a5d6a7, #c8e6c9);
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.7;
+}
+
+/* Button pulse animation */
+.butt-login::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: var(--border-radius-full);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.butt-login:hover:not(:disabled)::after {
+    width: 350px;
+    height: 350px;
+    opacity: 0;
+    animation: pulse 1s ease-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+        width: 5px;
+        height: 5px;
+    }
+    100% {
+        opacity: 0;
+        width: 350px;
+        height: 350px;
+    }
+}
+
+/* Resend OTP styling */
+.resend-otp {
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.resend-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    transition: var(--transition-fast);
+}
+
+.resend-btn:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Enhanced error message styling */
+.error-message {
+    color: var(--error-color);
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 8px 12px;
+    background-color: rgba(244, 67, 54, 0.1);
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--error-color);
+    margin-bottom: 15px;
+}
+
+/* Enhanced signup link */
+.signup-link {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-medium);
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.signup-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+.signup-link a:hover {
+    color: var(--primary-dark);
+}
+
+/* Signup link underline animation */
+.signup-link a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.signup-link a:hover::after {
+    width: 100%;
+}
+
+/* Form validation styling */
+input:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: var(--error-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 30px 20px;
+    }
+    
+    .login-title {
+        font-size: 24px;
+    }
+    
+    .login-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .forgot-password {
+        margin-top: 5px;
+    }
+
+    .tab-btn {
+        padding: 10px 5px;
+        font-size: 13px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a2940, #121212);
+        --card-bg: rgba(30, 30, 30, 0.7);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --text-dark: #f0f0f0;
+        --text-medium: #c0c0c0;
+        --text-light: #a0a0a0;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"] {
+        background-color: rgba(50, 50, 50, 0.8);
+        color: #e0e0e0;
+        border-color: #555;
+    }
+    
+    input:focus {
+        background-color: rgba(60, 60, 60, 0.95);
+    }
+    
+    input:hover:not(:focus) {
+        background-color: rgba(55, 55, 55, 0.9);
+        border-color: #666;
+    }
+
+    input:disabled {
+        background-color: rgba(40, 40, 40, 0.7);
+        color: #888;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+        background-color: rgba(50, 50, 50, 0.8);
+        border-color: #555;
+    }
+
+    .tab-btn.active {
+        background-color: rgba(60, 60, 60, 0.9);
+    }
+
+    .tab-btn:hover:not(.active) {
+        background-color: rgba(50, 50, 50, 0.6);
+    }
+
+    .error-message {
+        background-color: rgba(244, 67, 54, 0.15);
+    }
+}
