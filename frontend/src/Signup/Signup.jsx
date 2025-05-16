@@ -10,28 +10,19 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   function handleSignup(e) {
     e && e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match ❌");
-      return;
-    }
 
     if (password.length < 6) {
       setErrorMessage("Password must be at least 6 characters long");
       return;
     }
 
-    setIsLoading(true);
     setErrorMessage("");
 
-    const apiObj = { name, email, password, phone }; // ✅ Removed 'address'
+    const apiObj = { name, email, password };
 
     axios.post("http://localhost:5002/api/auth/signup", apiObj)
       .then(() => {
@@ -41,9 +32,6 @@ function Signup() {
       .catch((err) => {
         console.log("Signup error:", err);
         setErrorMessage(err.response?.data?.message || "Signup failed ❌");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   }
 
@@ -65,22 +53,14 @@ function Signup() {
             <input type="password" className="pass-input-signup" value={password} placeholder="Create Password (min. 6 characters)" onChange={(e) => setPassword(e.target.value)} required minLength="6" />
           </div>
 
-          <div className="form-group">
-            <input type="password" className="pass-input-signup" value={confirmPassword} placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} required />
-          </div>
-
-          <div className="form-group">
-            <input type="tel" className="phone-input-signup" value={phone} placeholder="Phone Number" onChange={(e) => setPhone(e.target.value)} required />
-          </div>
-
           {errorMessage && (
             <div className="error-message" style={{ display: 'block', marginBottom: '15px', color: 'red' }}>
               {errorMessage}
             </div>
           )}
 
-          <button type="submit" className="butt-signup" onClick={handleSignup} disabled={isLoading}>
-            {isLoading ? "Signing up..." : "Sign Up"}
+          <button type="submit" className="butt-signup" onClick={handleSignup}>
+            Sign Up
           </button>
         </form>
 
