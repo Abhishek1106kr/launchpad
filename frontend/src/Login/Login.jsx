@@ -1,7 +1,12 @@
+// Login Component
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "./Login.css"; // Import the CSS file
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+import { FaUser } from "react-icons/fa"; // Import user icon for guest login
+import authService from "../services/authService";
+import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,37 +15,95 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  function handleEmailLogin(e) {
+  // Regular email/password login
+  async function handleEmailLogin(e) {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
 
-    const apiObj = { email, password };
-
-    axios
-      .post("http://localhost:5002/api/auth/login", apiObj)
-      .then((res) => {
+    try {
+      // First try Firebase authentication
+      await authService.loginWithEmailAndPassword(email, password);
+      
+      // If Firebase login is successful, the AuthContext listener will handle
+      // token exchange and navigation
+      navigate("/mainpage");
+    } catch (firebaseError) {
+      console.log("Firebase login failed, trying regular API login...");
+      
+      // Fallback to regular API login
+      try {
+        const apiObj = { email, password };
+        const res = await axios.post("http://localhost:5002/api/auth/login", apiObj);
+        
         const token = res.data.token;
         if (token) {
-          localStorage.setItem("token", token);
+          localStorage.setItem("saveToken", token);
           navigate("/mainpage");
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         setErrorMessage(err.response?.data?.message || "Login failed. Please check your credentials.");
         console.log("Error:", err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // Google login
+  async function handleGoogleLogin() {
+    setIsLoading(true);
+    setErrorMessage("");
+    
+    try {
+      await authService.signInWithGoogle();
+      // AuthContext will handle token exchange and redirect
+      navigate("/mainpage");
+    } catch (error) {
+      console.error("Google login error:", error);
+      setErrorMessage(error.message || "Google login failed");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // GitHub login
+  async function handleGithubLogin() {
+    setIsLoading(true);
+    setErrorMessage("");
+    
+    try {
+      await authService.signInWithGithub();
+      // AuthContext will handle token exchange and redirect
+      navigate("/mainpage");
+    } catch (error) {
+      console.error("GitHub login error:", error);
+      setErrorMessage(error.message || "GitHub login failed");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // Guest login
+  async function handleGuestLogin() {
+    setIsLoading(true);
+    setErrorMessage("");
+    
+    try {
+      await authService.signInAnonymously();
+      // AuthContext will handle token exchange and redirect
+      navigate("/mainpage");
+    } catch (error) {
+      console.error("Guest login error:", error);
+      setErrorMessage(error.message || "Guest login failed");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
     <div className="login-container">
       <div className="login-card">
-        {/* Optional Logo */}
-        {/* <div className="login-logo"> <img src="/path-to-your-logo.png" alt="Logo" /> </div> */}
-
         <h2 className="login-title">Welcome Back</h2>
         
         <form onSubmit={handleEmailLogin} className="login-form">
@@ -94,6 +157,36 @@ function Login() {
             {errorMessage}
           </div>
         )}
+        
+        <div className="divider">
+          <div className="divider-line"></div>
+          <div className="divider-text">or sign in with</div>
+          <div className="divider-line"></div>
+        </div>
+
+        <div className="social-login">
+          <button 
+            className="social-btn google-btn" 
+            onClick={handleGoogleLogin}
+            disabled={isLoading}
+          >
+            <FcGoogle size={24} />
+          </button>
+          <button 
+            className="social-btn github-btn" 
+            onClick={handleGithubLogin}
+            disabled={isLoading}
+          >
+            <FaGithub size={24} color="#333" />
+          </button>
+          <button 
+            className="social-btn guest-btn" 
+            onClick={handleGuestLogin}
+            disabled={isLoading}
+          >
+            <FaUser size={24} color="#777" />
+          </button>
+        </div>
         
         <div className="signup-link">
           Don't have an account? <Link to="/signup">Sign Up</Link>
