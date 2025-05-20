@@ -22,7 +22,7 @@ function Login() {
       .then((res) => {
         const token = res.data.token;
         if (token) {
-          localStorage.setItem("saveToken", token);
+          localStorage.setItem("token", token);
           navigate("/mainpage");
         }
       })

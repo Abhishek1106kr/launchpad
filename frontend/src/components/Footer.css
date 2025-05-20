@@ -1,0 +1,144 @@
+/* Footer.css */
+:root {
+  --primary-color: #4caf50;
+  --primary-light: #81c784;
+  --primary-dark: #388e3c;
+  --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+  --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+  --text-dark: #222;
+  --text-medium: #555;
+  --text-light: #777;
+  --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+  --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-full: 50%;
+}
+
+.footer {
+  background: var(--card-bg); /* bg-gray-900, changing to glassmorphic */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--card-border); /* Add a border */
+  color: var(--text-dark); /* text-white, changing to dark text */
+  padding-top: 4rem; /* Increased top padding */
+  padding-bottom: 2rem; /* Adjusted bottom padding */
+}
+
+.footer-container {
+  max-width: 1280px; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem; /* Increased horizontal padding */
+  padding-right: 1.5rem; /* Increased horizontal padding */
+  padding-top: 0; /* Remove top padding as it's on the footer */
+  padding-bottom: 0; /* Remove bottom padding as it's on the footer */
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted min width for responsiveness */
+  gap: 3rem; /* Increased gap */
+  margin-bottom: 3rem; /* Added bottom margin */
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* md:grid-cols-4 */
+  }
+}
+
+.footer-col {
+  /* col-span-1 md:col-span-1 - handled by grid */
+}
+
+.footer-description {
+  color: var(--text-medium); /* text-gray-400, changing to medium text */
+  font-size: 0.9rem; /* Slightly larger */
+  margin-top: 1rem; /* mt-4 */
+  line-height: 1.6; /* Improved readability */
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem; /* Increased gap */
+  margin-top: 1.5rem; /* mt-6 */
+}
+
+.social-link {
+  color: var(--text-medium); /* text-gray-400 */
+  transition: color var(--transition-normal), transform var(--transition-normal); /* Smooth transition */
+}
+
+.social-link:hover {
+  color: var(--primary-dark); /* Darker primary color on hover */
+  transform: translateY(-3px); /* Add slight lift */
+}
+
+.footer-heading {
+  font-size: 1rem; /* Slightly larger */
+  font-weight: 700; /* Bolder */
+  color: var(--text-dark); /* text-gray-300, changing to dark text */
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* tracking-wider */
+  margin-bottom: 1.5rem; /* Added bottom margin */
+}
+
+.footer-links-list {
+  margin-top: 0; /* Remove top margin as heading has bottom margin */
+  list-style: none;
+  padding: 0;
+  space-y: 0.75rem; /* Increased space between items */
+}
+
+.footer-link-item {
+  /* li styling */
+}
+
+.footer-link {
+  color: var(--text-medium); /* text-gray-400 */
+  text-decoration: none;
+  transition: color var(--transition-normal); /* Smooth transition */
+  font-size: 0.9rem; /* Slightly larger font */
+}
+
+.footer-link:hover {
+  color: var(--primary-dark); /* Darker primary color on hover */
+}
+
+.copyright-section {
+  margin-top: 3rem; /* mt-12 */
+  border-top: 1px solid var(--card-border); /* border-t border-gray-800, changing border color */
+  padding-top: 2rem; /* pt-8 */
+  text-align: center;
+}
+
+.copyright-text {
+  color: var(--text-medium); /* text-gray-400 */
+  font-size: 0.875rem; /* text-sm */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjusted min width */
+    gap: 2rem; /* Adjusted gap */
+  }
+
+  .footer-heading {
+    margin-bottom: 1rem;
+  }
+
+  .footer-links-list {
+    space-y: 0.5rem;
+  }
+} 

@@ -1,16 +1,19 @@
-*{
-  margin: 0;
-  padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  body {
+    @apply bg-gray-100 font-inter;
+  }
 }
 
-body{
-  background-color: rgb(163, 139, 139);
-}
-
-.header-bar{
-  border: 5px solid aqua;
-  height: 40px;
-  width: 100%;
-  background-color: aqua;
-  border-radius: 2px;
+@layer components {
+  .header-bar {
+    @apply border-4 border-cyan-400 h-10 w-full bg-cyan-400 rounded;
+  }
 }

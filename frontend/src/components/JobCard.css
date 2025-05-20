@@ -1,0 +1,165 @@
+/* JobCard.css */
+:root {
+  --primary-color: #4caf50;
+  --primary-light: #81c784;
+  --primary-dark: #388e3c;
+  --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+  --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+  --text-dark: #222;
+  --text-medium: #555;
+  --text-light: #777;
+  --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+  --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-full: 50%;
+}
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md); /* Using md shadow for cards */
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  transition: all var(--transition-normal);
+}
+
+.job-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+}
+
+.job-card-content {
+  flex: 1;
+  padding: 1.5rem; /* p-6 */
+  display: flex;
+  flex-direction: column;
+}
+
+.job-header {
+  display: flex;
+  align-items: flex-start; /* items-start */
+  justify-content: space-between;
+  margin-bottom: 1rem; /* Add some space below header */
+}
+
+.job-info {
+  flex-grow: 1;
+  margin-right: 1rem; /* Space between info and logo */
+}
+
+.job-title {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: var(--text-dark);
+  margin-bottom: 0.25rem; /* space between title and company */
+}
+
+.job-company {
+  font-size: 1rem; /* text-gray-700 */
+  color: var(--text-medium);
+}
+
+.job-logo {
+  flex-shrink: 0;
+  height: 3rem; /* h-12 */
+  width: 3rem; /* w-12 */
+  border-radius: var(--border-radius-md); /* rounded-md */
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.05); /* bg-gray-100 */
+  border: 1px solid var(--card-border); /* Add border for consistency */
+}
+
+.job-logo-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.job-description {
+  margin-top: 0.75rem; /* mt-3 */
+  color: var(--text-medium);
+  margin-bottom: 1rem; /* space before skills */
+}
+
+.job-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* gap-2 */
+  margin-top: auto; /* Push skills to bottom */
+}
+
+.job-skill-tag {
+  padding: 0.25rem 0.5rem; /* px-2 py-1 */
+  border-radius: var(--border-radius-full); /* rounded-full */
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500; /* font-medium */
+  background-color: var(--primary-light); /* bg-blue-100 */
+  color: var(--primary-dark); /* text-blue-800 */
+}
+
+.job-footer {
+  padding: 1rem 1.5rem; /* px-6 py-4 */
+  background: rgba(0, 0, 0, 0.03); /* bg-gray-50 */
+  border-top: 1px solid var(--card-border); /* Add border */
+  margin-top: auto; /* Ensure footer is at bottom */
+}
+
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* justify-between */
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 0.75rem; /* mb-2, add space before button */
+}
+
+.job-meta-item {
+  display: flex;
+  align-items: center;
+  color: var(--text-dark); /* text-gray-700 */
+  margin-bottom: 0.5rem; /* For wrapping items */
+  margin-right: 1rem; /* mr-4 */
+}
+
+.job-meta-item:last-child {
+    margin-right: 0; /* Remove margin from last item */
+}
+
+.job-meta-icon {
+  margin-right: 0.25rem; /* mr-1 */
+  color: var(--primary-color); /* text-blue-600 */
+}
+
+.job-apply-button {
+  margin-top: 0.75rem; /* mt-3, adjust spacing */
+  width: 100%;
+  background: var(--primary-gradient); /* bg-blue-600 */
+  color: white;
+  font-weight: 500; /* font-medium */
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  border-radius: var(--border-radius-sm);
+  transition: background var(--transition-normal);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.job-apply-button:hover {
+  background: var(--primary-hover-gradient); /* hover:bg-blue-700 */
+} 

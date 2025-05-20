@@ -1,0 +1,142 @@
+/* CallToActionSection.css */
+:root {
+  --primary-color: #4caf50;
+  --primary-light: #81c784;
+  --primary-dark: #388e3c;
+  --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+  --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+  --text-dark: #222;
+  --text-medium: #555;
+  --text-light: #777;
+  --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+  --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-full: 50%;
+}
+
+.cta-section {
+  padding-top: 5rem; /* Increased padding */
+  padding-bottom: 5rem; /* Increased padding */
+  background: var(--bg-gradient); /* Consistent background */
+  overflow: hidden;
+  position: relative;
+}
+
+.cta-container {
+  max-width: 1280px; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem; /* Increased horizontal padding */
+  padding-right: 1.5rem; /* Increased horizontal padding */
+  position: relative;
+  z-index: 10;
+}
+
+.cta-content {
+  max-width: 50rem; /* Slightly wider max width */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background: var(--card-bg); /* Glassmorphic background */
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 3rem 2rem; /* Added padding */
+  box-shadow: var(--shadow-lg); /* Added shadow */
+}
+
+.cta-title {
+  font-size: 2.5rem; /* Adjusted size */
+  font-weight: 800; /* Bolder */
+  color: var(--text-dark); /* text-white, changing to dark text */
+  margin-bottom: 1rem; /* Adjusted margin */
+}
+
+@media (min-width: 640px) {
+  .cta-title {
+    font-size: 3rem; /* sm:text-4xl */
+  }
+}
+
+.cta-subtitle {
+  margin-top: 1rem; /* mt-4 */
+  font-size: 1.25rem; /* text-xl */
+  color: var(--text-medium); /* text-blue-100, changing to medium text */
+  line-height: 1.6; /* Improved readability */
+  margin-bottom: 2rem; /* Adjusted margin */
+}
+
+.cta-button-wrapper {
+  margin-top: 2rem; /* mt-8 */
+  display: flex;
+  justify-content: center;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.5rem; /* Increased padding */
+  border: none; /* Remove border */
+  border-radius: var(--border-radius-md); /* Slightly larger border radius */
+  box-shadow: var(--shadow-md); /* shadow-md */
+  font-size: 1.125rem; /* Slightly larger font */
+  font-weight: 600; /* Semi-bold */
+  color: white; /* text-blue-700, changing to white for primary button */
+  background: var(--primary-gradient); /* bg-white, changing to primary gradient */
+  transition: all var(--transition-normal); /* Transition all properties */
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  background: var(--primary-hover-gradient); /* hover:bg-blue-50, changing to hover gradient */
+  box-shadow: var(--shadow-lg); /* Add larger shadow on hover */
+  transform: translateY(-3px); /* Add lift effect on hover */
+}
+
+/* Decorative elements - Keeping the logic but adjusting colors/opacity if needed */
+.cta-section .absolute {
+  /* Existing absolute positioning */
+  position: absolute;
+  /* You might adjust colors or opacity here to fit the new scheme if the previous ones clash */
+  /* For example: */
+  /* background: rgba(76, 175, 80, 0.3); */ /* Using primary color with transparency */
+}
+
+.cta-section .bg-purple-500 {
+    background-color: rgba(147, 51, 234, 0.2); /* Adjusted for lower transparency */
+}
+
+.cta-section .bg-blue-500 {
+    background-color: rgba(59, 130, 246, 0.2); /* Adjusted for lower transparency */
+}
+
+@media (max-width: 768px) {
+  .cta-title {
+    font-size: 2rem;
+  }
+
+  .cta-subtitle {
+    font-size: 1rem;
+  }
+
+  .cta-content {
+    padding: 2rem 1rem;
+  }
+
+  .cta-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+} 

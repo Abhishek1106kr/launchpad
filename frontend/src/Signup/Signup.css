@@ -34,7 +34,7 @@ body {
     overflow-x: hidden;
 }
 
-.signup-container {
+.auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,7 +59,7 @@ body {
 }
 
 /* Enhanced glassmorphic card with floating effect */
-.signup-card {
+.auth-card {
     background: var(--card-bg);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-lg);
@@ -97,7 +97,7 @@ body {
 }
 
 /* Decorative elements */
-.signup-card::before {
+.auth-card::before {
     content: '';
     position: absolute;
     top: -50px;
@@ -109,7 +109,7 @@ body {
     z-index: -1;
 }
 
-.signup-card::after {
+.auth-card::after {
     content: '';
     position: absolute;
     bottom: -50px;
@@ -122,7 +122,7 @@ body {
 }
 
 /* Title with underline animation */
-.signup-title {
+.auth-title {
     text-align: center;
     margin-bottom: 30px;
     font-size: 28px;
@@ -132,7 +132,7 @@ body {
     padding-bottom: 10px;
 }
 
-.signup-title::after {
+.auth-title::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -170,10 +170,7 @@ body {
 }
 
 /* Enhanced form inputs */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"] {
+.auth-input {
     width: 100%;
     padding: 14px 16px;
     border-radius: var(--border-radius-md);
@@ -186,7 +183,7 @@ input[type="tel"] {
 }
 
 /* Input focus animations */
-input:focus {
+.auth-input:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
@@ -195,7 +192,7 @@ input:focus {
 }
 
 /* Input hover effect */
-input:hover:not(:focus) {
+.auth-input:hover:not(:focus) {
     border-color: #aaa;
     background-color: rgba(255, 255, 255, 0.95);
 }
@@ -210,7 +207,7 @@ input:hover:not(:focus) {
 }
 
 /* Improved signup button with pulse effect */
-.butt-signup {
+.auth-btn {
     width: 100%;
     padding: 15px;
     background: var(--primary-gradient);
@@ -227,19 +224,19 @@ input:hover:not(:focus) {
     letter-spacing: 0.5px;
 }
 
-.butt-signup:hover {
+.auth-btn:hover {
     background: var(--primary-hover-gradient);
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
 }
 
-.butt-signup:active {
+.auth-btn:active {
     transform: translateY(1px);
     box-shadow: var(--shadow-sm);
 }
 
 /* Button pulse animation */
-.butt-signup::after {
+.auth-btn::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -253,7 +250,7 @@ input:hover:not(:focus) {
     transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
 }
 
-.butt-signup:hover::after {
+.auth-btn:hover::after {
     width: 350px;
     height: 350px;
     opacity: 0;
@@ -338,7 +335,7 @@ input:hover:not(:focus) {
     box-shadow: 0 4px 12px rgba(66, 103, 178, 0.2);
 }
 
-.github-btn:hover {
+.apple-btn:hover {
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(51, 51, 51, 0.2);
 }
@@ -401,7 +398,7 @@ input:hover:not(:focus) {
 }
 
 /* Form validation styling */
-input:invalid:not(:placeholder-shown) {
+.auth-input:invalid:not(:placeholder-shown) {
     border-color: var(--error-color);
 }
 
@@ -412,7 +409,7 @@ input:invalid:not(:placeholder-shown) {
     display: none;
 }
 
-input:invalid:not(:placeholder-shown) + .error-message {
+.auth-input:invalid:not(:placeholder-shown) + .error-message {
     display: block;
 }
 
@@ -487,11 +484,11 @@ input:invalid:not(:placeholder-shown) + .error-message {
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-    .signup-card {
+    .auth-card {
         padding: 30px 20px;
     }
     
-    .signup-title {
+    .auth-title {
         font-size: 24px;
     }
     
@@ -516,20 +513,17 @@ input:invalid:not(:placeholder-shown) + .error-message {
         --text-light: #a0a0a0;
     }
     
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="tel"] {
+    .auth-input {
         background-color: rgba(50, 50, 50, 0.8);
         color: #e0e0e0;
         border-color: #555;
     }
     
-    input:focus {
+    .auth-input:focus {
         background-color: rgba(60, 60, 60, 0.95);
     }
     
-    input:hover:not(:focus) {
+    .auth-input:hover:not(:focus) {
         background-color: rgba(55, 55, 55, 0.9);
         border-color: #666;
     }

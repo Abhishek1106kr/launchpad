@@ -1,0 +1,138 @@
+/* HeroSection.css */
+:root {
+  --primary-color: #4caf50;
+  --primary-light: #81c784;
+  --primary-dark: #388e3c;
+  --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+  --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+  --text-dark: #222;
+  --text-medium: #555;
+  --text-light: #777;
+  --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+  --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-full: 50%;
+}
+
+.hero-section-container {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-gradient);
+  padding-top: 8rem; /* Adjust as needed */
+  padding-bottom: 8rem; /* Adjust as needed */
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero-content {
+  max-width: 1280px; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 10;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem; /* px-4 */
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3.5rem; /* Adjust as needed, text-4xl to text-6xl */
+  font-weight: 800; /* font-bold */
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #4caf50, #2196f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.5rem; /* text-xl */
+  color: var(--text-medium);
+  max-width: 40rem; /* max-w-2xl */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem; /* mt-6 */
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  margin-top: 2.5rem; /* mt-10 */
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; /* gap-3 */
+  flex-direction: column; /* flex-col */
+}
+
+@media (min-width: 640px) {
+  .hero-buttons {
+    flex-direction: row; /* sm:flex-row */
+  }
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.5rem; /* px-8 py-3 */
+  border-radius: var(--border-radius-md); /* Slightly larger border radius */
+  box-shadow: var(--shadow-md); /* Slightly more prominent shadow */
+  font-size: 1.125rem; /* Slightly larger font */
+  font-weight: 600; /* Semi-bold */
+  transition: all var(--transition-normal);
+  text-decoration: none;
+}
+
+.hero-button-primary {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+}
+
+.hero-button-primary:hover {
+  background: var(--primary-hover-gradient);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-button-secondary {
+  background: var(--card-bg); /* Use card background for glassmorphic effect */
+  color: var(--text-dark);
+  border: 1px solid var(--card-border); /* Glassmorphic border */
+  backdrop-filter: blur(10px); /* Add blur for glassmorphic effect */
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-button-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color); /* Highlight border on hover */
+}
+
+/* Removed the absolute background div as the gradient is on the container */ 

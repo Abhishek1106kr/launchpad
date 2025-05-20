@@ -10,6 +10,7 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   function handleSignup(e) {
@@ -22,7 +23,7 @@ function Signup() {
 
     setErrorMessage("");
 
-    const apiObj = { name, email, password };
+    const apiObj = { name, email, password, phone };
 
     axios.post("http://localhost:5002/api/auth/signup", apiObj)
       .then(() => {
@@ -36,21 +37,25 @@ function Signup() {
   }
 
   return (
-    <div className="signup-container">
-      <div className="signup-card">
-        <h2 className="signup-title">Create Account</h2>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2 className="auth-title">Create Account</h2>
 
         <form onSubmit={handleSignup}>
           <div className="form-group">
-            <input type="text" className="name-input-signup" value={name} placeholder="Full Name" onChange={(e) => setName(e.target.value)} required />
+            <input type="text" className="auth-input" value={name} placeholder="Full Name" onChange={(e) => setName(e.target.value)} required />
           </div>
 
           <div className="form-group">
-            <input type="email" className="email-input-signup" value={email} placeholder="Email Address" onChange={(e) => setEmail(e.target.value)} required />
+            <input type="email" className="auth-input" value={email} placeholder="Email Address" onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
           <div className="form-group">
-            <input type="password" className="pass-input-signup" value={password} placeholder="Create Password (min. 6 characters)" onChange={(e) => setPassword(e.target.value)} required minLength="6" />
+            <input type="password" className="auth-input" value={password} placeholder="Create Password (min. 6 characters)" onChange={(e) => setPassword(e.target.value)} required minLength="6" />
+          </div>
+
+          <div className="form-group">
+            <input type="text" className="auth-input" value={phone} placeholder="Phone Number" onChange={(e) => setPhone(e.target.value)} required />
           </div>
 
           {errorMessage && (
@@ -59,7 +64,7 @@ function Signup() {
             </div>
           )}
 
-          <button type="submit" className="butt-signup" onClick={handleSignup}>
+          <button type="submit" className="auth-btn">
             Sign Up
           </button>
         </form>

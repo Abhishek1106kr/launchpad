@@ -1,0 +1,153 @@
+/* FeaturesSection.css */
+:root {
+  --primary-color: #4caf50;
+  --primary-light: #81c784;
+  --primary-dark: #388e3c;
+  --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+  --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+  --text-dark: #222;
+  --text-medium: #555;
+  --text-light: #777;
+  --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+  --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-full: 50%;
+}
+
+.features-section {
+  padding-top: 5rem; /* Increased padding */
+  padding-bottom: 5rem; /* Increased padding */
+  background: var(--bg-gradient); /* Consistent background */
+  overflow: hidden;
+}
+
+.features-container {
+  max-width: 1280px; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem; /* px-4 */
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 4rem; /* Increased margin */
+}
+
+.features-subheader {
+  font-size: 1.125rem; /* Slightly larger */
+  font-weight: 700; /* Bolder */
+  color: var(--primary-dark); /* Darker primary color */
+  letter-spacing: 0.1em; /* Increased letter spacing */
+  text-transform: uppercase;
+  margin-bottom: 0.75rem; /* Added bottom margin */
+}
+
+.features-title {
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 2.5rem; /* Adjusted size */
+  font-weight: 800; /* Bolder */
+  color: var(--text-dark); /* text-gray-900 */
+}
+
+@media (min-width: 640px) {
+  .features-title {
+    font-size: 3rem; /* Adjusted size for larger screens */
+  }
+}
+
+.features-subtitle {
+  margin-top: 1rem; /* mt-4 */
+  max-width: 45rem; /* Slightly wider max width */
+  font-size: 1.25rem; /* text-xl */
+  color: var(--text-medium); /* text-gray-500 */
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6; /* Improved readability */
+}
+
+.features-grid {
+  margin-top: 4rem; /* mt-16 */
+  display: grid;
+  gap: 2rem; /* gap-8 */
+}
+
+@media (min-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+  }
+}
+
+/* Feature Card styles */
+.feature-card-container {
+  position: relative;
+}
+
+.feature-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius-lg); /* rounded-lg */
+  box-shadow: var(--shadow-md); /* shadow-lg, adjusting to md for cards */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  padding: 2rem; /* Increased padding */
+  display: flex;
+  align-items: flex-start; /* items-start */
+  gap: 1.5rem; /* Increased gap */
+  height: 100%;
+  transition: all var(--transition-normal);
+}
+
+.feature-card:hover {
+    box-shadow: var(--shadow-lg); /* hover:shadow-xl */
+    transform: translateY(-8px); /* Increased lift effect */
+    border-color: var(--primary-light); /* Highlight border on hover */
+}
+
+.feature-icon-wrapper {
+  flex-shrink: 0;
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem; /* Slightly larger icon area */
+  width: 3.5rem; /* Slightly larger icon area */
+  border-radius: var(--border-radius-md); /* rounded-md, adjusting to md */
+  background-color: var(--primary-light); /* bg-blue-100, changing to primary-light */
+  color: var(--primary-dark); /* text-blue-600, changing to primary-dark */
+  box-shadow: var(--shadow-sm); /* Added subtle shadow to icon */
+}
+
+.feature-title {
+  font-size: 1.375rem; /* Slightly larger title */
+  font-weight: 600; /* font-medium */
+  color: var(--text-dark); /* text-gray-900 */
+  margin-bottom: 0.5rem; /* Adjusted margin */
+}
+
+.feature-description {
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 1rem; /* text-base */
+  color: var(--text-medium); /* text-gray-500 */
+  line-height: 1.5; /* Improved readability */
+}
+
+/* Feature Card styles will be added next */ 
