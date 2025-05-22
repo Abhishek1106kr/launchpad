@@ -75,8 +75,8 @@ function App() {
             } 
           />
           
-          {/* Default Route */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          {/* Default Route: Redirect to /mainpage */}
+          <Route path="/" element={<Navigate to="/mainpage" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
