@@ -1,10 +1,10 @@
-// Login Component
+// Login Component - Fixed to handle authentication properly
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { FaUser } from "react-icons/fa"; // Import user icon for guest login
+import { FaUser } from "react-icons/fa";
 import authService from "../services/authService";
 import "./Login.css";
 
@@ -15,42 +15,33 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Regular email/password login
+  // Regular email/password login - ONLY use traditional API login
   async function handleEmailLogin(e) {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      // First try Firebase authentication
-      await authService.loginWithEmailAndPassword(email, password);
+      // Use traditional API login for email/password
+      const apiObj = { email, password };
+      const res = await axios.post("http://localhost:5002/api/auth/login", apiObj);
       
-      // If Firebase login is successful, the AuthContext listener will handle
-      // token exchange and navigation
-      navigate("/mainpage");
-    } catch (firebaseError) {
-      console.log("Firebase login failed, trying regular API login...");
-      
-      // Fallback to regular API login
-      try {
-        const apiObj = { email, password };
-        const res = await axios.post("http://localhost:5002/api/auth/login", apiObj);
-        
-        const token = res.data.token;
-        if (token) {
-          localStorage.setItem("saveToken", token);
-          navigate("/mainpage");
-        }
-      } catch (err) {
-        setErrorMessage(err.response?.data?.message || "Login failed. Please check your credentials.");
-        console.log("Error:", err);
+      const token = res.data.token;
+      if (token) {
+        localStorage.setItem("saveToken", token);
+        console.log('Login successful');
+        navigate("/mainpage");
       }
+    } catch (err) {
+      console.error("Login error:", err);
+      const errorMsg = err.response?.data?.message || err.response?.data?.error || "Login failed. Please check your credentials.";
+      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
     }
   }
 
-  // Google login
+  // Google login - Use Firebase
   async function handleGoogleLogin() {
     setIsLoading(true);
     setErrorMessage("");
@@ -61,13 +52,13 @@ function Login() {
       navigate("/mainpage");
     } catch (error) {
       console.error("Google login error:", error);
-      setErrorMessage(error.message || "Google login failed");
+      setErrorMessage(getErrorMessage(error));
     } finally {
       setIsLoading(false);
     }
   }
 
-  // GitHub login
+  // GitHub login - Use Firebase
   async function handleGithubLogin() {
     setIsLoading(true);
     setErrorMessage("");
@@ -78,13 +69,13 @@ function Login() {
       navigate("/mainpage");
     } catch (error) {
       console.error("GitHub login error:", error);
-      setErrorMessage(error.message || "GitHub login failed");
+      setErrorMessage(getErrorMessage(error));
     } finally {
       setIsLoading(false);
     }
   }
 
-  // Guest login
+  // Guest login - Use Firebase anonymous auth
   async function handleGuestLogin() {
     setIsLoading(true);
     setErrorMessage("");
@@ -95,10 +86,37 @@ function Login() {
       navigate("/mainpage");
     } catch (error) {
       console.error("Guest login error:", error);
-      setErrorMessage(error.message || "Guest login failed");
+      setErrorMessage(getErrorMessage(error));
     } finally {
       setIsLoading(false);
     }
+  }
+
+  // Helper function to get user-friendly error messages
+  function getErrorMessage(error) {
+    if (error.code) {
+      switch (error.code) {
+        case 'auth/operation-not-allowed':
+          return 'This sign-in method is not enabled. Please contact support.';
+        case 'auth/popup-closed-by-user':
+          return 'Sign-in was cancelled. Please try again.';
+        case 'auth/popup-blocked':
+          return 'Pop-up was blocked by your browser. Please allow pop-ups and try again.';
+        case 'auth/cancelled-popup-request':
+          return 'Sign-in was cancelled. Please try again.';
+        case 'auth/user-not-found':
+          return 'No account found with this email. Please sign up first.';
+        case 'auth/wrong-password':
+          return 'Incorrect password. Please try again.';
+        case 'auth/invalid-email':
+          return 'Invalid email address.';
+        case 'auth/user-disabled':
+          return 'This account has been disabled. Please contact support.';
+        default:
+          return error.message || 'An error occurred during sign-in';
+      }
+    }
+    return error.message || 'An error occurred during sign-in';
   }
 
   return (
@@ -153,7 +171,16 @@ function Login() {
         </form>
         
         {errorMessage && (
-          <div className="error-message" style={{ display: 'block', marginBottom: '15px' }}>
+          <div className="error-message" style={{ 
+            display: 'block', 
+            marginBottom: '15px',
+            color: 'red',
+            padding: '10px',
+            backgroundColor: '#fee',
+            border: '1px solid #fcc',
+            borderRadius: '4px',
+            fontSize: '14px'
+          }}>
             {errorMessage}
           </div>
         )}
@@ -169,6 +196,7 @@ function Login() {
             className="social-btn google-btn" 
             onClick={handleGoogleLogin}
             disabled={isLoading}
+            title="Sign in with Google"
           >
             <FcGoogle size={24} />
           </button>
@@ -176,6 +204,7 @@ function Login() {
             className="social-btn github-btn" 
             onClick={handleGithubLogin}
             disabled={isLoading}
+            title="Sign in with GitHub"
           >
             <FaGithub size={24} color="#333" />
           </button>
@@ -183,6 +212,7 @@ function Login() {
             className="social-btn guest-btn" 
             onClick={handleGuestLogin}
             disabled={isLoading}
+            title="Continue as Guest"
           >
             <FaUser size={24} color="#777" />
           </button>
