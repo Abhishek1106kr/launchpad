@@ -1,9 +1,9 @@
-// Signup Component
+// Signup Component - Fixed to handle Firebase auth properly
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub, FaUser } from "react-icons/fa"; // Replaced Twitter with User icon
+import { FaGithub, FaUser } from "react-icons/fa";
 import authService from "../services/authService";
 import "./Signup.css";
 
@@ -15,10 +15,11 @@ function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Regular email/password signup
+  // Regular email/password signup - ONLY use traditional backend signup
   async function handleSignup(e) {
     e && e.preventDefault();
     setIsLoading(true);
+    setErrorMessage("");
 
     if (password.length < 6) {
       setErrorMessage("Password must be at least 6 characters long");
@@ -26,141 +27,92 @@ function Signup() {
       return;
     }
 
-    setErrorMessage("");
-
     try {
-      // First register with Firebase
-      const firebaseUser = await authService.registerWithEmailAndPassword(email, password);
+      // ONLY use traditional API signup for email/password
+      const apiObj = { name, email, password };
+      const response = await axios.post("http://localhost:5002/api/auth/signup", apiObj);
       
-      // If Firebase registration succeeds, also register with your backend
-      // This will allow the user to use both authentication methods
-      try {
-        const apiObj = { 
-          name, 
-          email, 
-          password,
-          phone: '', // You might want to add this field to your form
-          firebaseUid: firebaseUser.uid // Pass Firebase UID to your backend
-        };
-        
-        await axios.post("http://localhost:5002/api/auth/signup", apiObj);
-        alert("Signup complete ✅");
-        navigate("/login");
-      } catch (backendError) {
-        console.error("Backend registration error:", backendError);
-        // Firebase registration succeeded but backend failed
-        // You might want to delete the Firebase user or handle this case differently
-        setErrorMessage("Account created but profile setup failed. Please contact support.");
-      }
-    } catch (firebaseError) {
-      console.error("Firebase registration error:", firebaseError);
+      console.log('Signup successful:', response.data);
+      alert("Signup complete ✅");
+      navigate("/login");
       
-      // Try traditional signup as fallback
-      try {
-        const apiObj = { name, email, password };
-        await axios.post("http://localhost:5002/api/auth/signup", apiObj);
-        alert("Signup complete ✅");
-        navigate("/login");
-      } catch (err) {
-        console.error("Signup error:", err);
-        setErrorMessage(err.response?.data?.message || "Signup failed ❌");
-      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      const errorMsg = err.response?.data?.error || err.response?.data?.message || "Signup failed ❌";
+      setErrorMessage(errorMsg);
     } finally {
       setIsLoading(false);
     }
   }
 
-  // Google signup
+  // Google signup - Use Firebase
   async function handleGoogleSignup() {
     setIsLoading(true);
     setErrorMessage("");
     
     try {
-      const user = await authService.signInWithGoogle();
-      
-      // After successful Google auth, register the user in your backend
-      try {
-        const apiObj = {
-          name: user.displayName || '',
-          email: user.email,
-          firebaseUid: user.uid,
-          authProvider: 'google'
-        };
-        
-        await axios.post("http://localhost:5002/api/auth/firebase-signup", apiObj);
-        navigate("/mainpage");
-      } catch (err) {
-        console.error("Error registering with backend:", err);
-        setErrorMessage("Google signup succeeded but profile setup failed");
-      }
+      await authService.signInWithGoogle();
+      // AuthContext will handle the token exchange and navigation
+      navigate("/mainpage");
     } catch (error) {
       console.error("Google signup error:", error);
-      setErrorMessage(error.message || "Google signup failed");
+      setErrorMessage(getErrorMessage(error));
     } finally {
       setIsLoading(false);
     }
   }
 
-  // GitHub signup
+  // GitHub signup - Use Firebase
   async function handleGithubSignup() {
     setIsLoading(true);
     setErrorMessage("");
     
     try {
-      const user = await authService.signInWithGithub();
-      
-      // After successful GitHub auth, register the user in your backend
-      try {
-        const apiObj = {
-          name: user.displayName || '',
-          email: user.email,
-          firebaseUid: user.uid,
-          authProvider: 'github'
-        };
-        
-        await axios.post("http://localhost:5002/api/auth/firebase-signup", apiObj);
-        navigate("/mainpage");
-      } catch (err) {
-        console.error("Error registering with backend:", err);
-        setErrorMessage("GitHub signup succeeded but profile setup failed");
-      }
+      await authService.signInWithGithub();
+      // AuthContext will handle the token exchange and navigation
+      navigate("/mainpage");
     } catch (error) {
       console.error("GitHub signup error:", error);
-      setErrorMessage(error.message || "GitHub signup failed");
+      setErrorMessage(getErrorMessage(error));
     } finally {
       setIsLoading(false);
     }
   }
 
-  // Guest signup
+  // Guest signup - Use Firebase anonymous auth
   async function handleGuestSignup() {
     setIsLoading(true);
     setErrorMessage("");
     
     try {
-      const user = await authService.signInAnonymously();
-      
-      // After successful anonymous auth, register the user in your backend
-      try {
-        const apiObj = {
-          name: 'Guest User',
-          email: '', // Anonymous users don't have emails
-          firebaseUid: user.uid,
-          authProvider: 'anonymous'
-        };
-        
-        await axios.post("http://localhost:5002/api/auth/firebase-signup", apiObj);
-        navigate("/mainpage");
-      } catch (err) {
-        console.error("Error registering with backend:", err);
-        setErrorMessage("Guest signup succeeded but profile setup failed");
-      }
+      await authService.signInAnonymously();
+      // AuthContext will handle the token exchange and navigation
+      navigate("/mainpage");
     } catch (error) {
       console.error("Guest signup error:", error);
-      setErrorMessage(error.message || "Guest signup failed");
+      setErrorMessage(getErrorMessage(error));
     } finally {
       setIsLoading(false);
     }
+  }
+
+  // Helper function to get user-friendly error messages
+  function getErrorMessage(error) {
+    if (error.code) {
+      switch (error.code) {
+        case 'auth/operation-not-allowed':
+          return 'This sign-in method is not enabled. Please contact support.';
+        case 'auth/popup-closed-by-user':
+          return 'Sign-in was cancelled. Please try again.';
+        case 'auth/popup-blocked':
+          return 'Pop-up was blocked by your browser. Please allow pop-ups and try again.';
+        case 'auth/cancelled-popup-request':
+          return 'Sign-in was cancelled. Please try again.';
+        default:
+          return error.message || 'An error occurred during sign-up';
+      }
+    }
+    return error.message || 'An error occurred during sign-up';
   }
 
   return (
@@ -204,7 +156,16 @@ function Signup() {
           </div>
 
           {errorMessage && (
-            <div className="error-message" style={{ display: 'block', marginBottom: '15px', color: 'red' }}>
+            <div className="error-message" style={{ 
+              display: 'block', 
+              marginBottom: '15px', 
+              color: 'red',
+              padding: '10px',
+              backgroundColor: '#fee',
+              border: '1px solid #fcc',
+              borderRadius: '4px',
+              fontSize: '14px'
+            }}>
               {errorMessage}
             </div>
           )}
@@ -229,6 +190,7 @@ function Signup() {
             className="social-btn google-btn" 
             onClick={handleGoogleSignup}
             disabled={isLoading}
+            title="Sign up with Google"
           >
             <FcGoogle size={24} />
           </button>
@@ -236,6 +198,7 @@ function Signup() {
             className="social-btn github-btn" 
             onClick={handleGithubSignup}
             disabled={isLoading}
+            title="Sign up with GitHub"
           >
             <FaGithub size={24} color="#333" />
           </button>
@@ -243,6 +206,7 @@ function Signup() {
             className="social-btn guest-btn" 
             onClick={handleGuestSignup}
             disabled={isLoading}
+            title="Continue as Guest"
           >
             <FaUser size={24} color="#777" />
           </button>
