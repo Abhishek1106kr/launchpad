@@ -1,0 +1,218 @@
+import { Startup, Student, Gig, Application } from '../types';
+
+// Mock Startups
+export const mockStartups: Startup[] = [
+  {
+    id: 's-1',
+    name: 'TechNova Solutions',
+    email: 'admin@technova.com',
+    logo: 'https://images.pexels.com/photos/2312369/pexels-photo-2312369.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: 'Building next-gen AI solutions for businesses',
+    website: 'https://technova.example.com',
+    industry: 'Artificial Intelligence',
+    location: 'San Francisco, CA',
+    foundedYear: 2019,
+    size: '11-50 employees',
+  },
+  {
+    id: 's-2',
+    name: 'GreenEarth Innovations',
+    email: 'team@greenearth.com',
+    logo: 'https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    description: 'Sustainable solutions for a greener future',
+    website: 'https://greenearth.example.com',
+    industry: 'CleanTech',
+    location: 'Austin, TX',
+    foundedYear: 2020,
+    size: '1-10 employees',
+  }
+];
+
+// Mock Auth Responses
+export const mockAuthResponses: Record<string, boolean> = {
+  'admin@technova.com': true,
+  'team@greenearth.com': true
+};
+
+// Mock Students
+export const mockStudents: Student[] = [
+  {
+    id: 'st-1',
+    name: 'Alex Johnson',
+    email: 'alex.j@university.edu',
+    college: 'Stanford University',
+    graduationYear: 2024,
+    skills: ['JavaScript', 'React', 'Node.js', 'Python'],
+    bio: 'Computer Science major with a passion for web development',
+    profilePicture: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    linkedIn: 'https://linkedin.com/in/alexj',
+    github: 'https://github.com/alexj',
+  },
+  {
+    id: 'st-2',
+    name: 'Sophia Lee',
+    email: 'slee@university.edu',
+    college: 'MIT',
+    graduationYear: 2023,
+    skills: ['Python', 'Machine Learning', 'Data Science', 'SQL'],
+    bio: 'Data Science student interested in AI/ML applications',
+    profilePicture: 'https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    linkedIn: 'https://linkedin.com/in/sophialee',
+    github: 'https://github.com/sophialee',
+  },
+  {
+    id: 'st-3',
+    name: 'Marcus Wilson',
+    email: 'marcus.w@university.edu',
+    college: 'UC Berkeley',
+    graduationYear: 2024,
+    skills: ['Java', 'Spring Boot', 'Angular', 'AWS'],
+    bio: 'Software Engineering student with enterprise development experience',
+    profilePicture: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    linkedIn: 'https://linkedin.com/in/marcusw',
+    github: 'https://github.com/marcusw',
+  },
+  {
+    id: 'st-4',
+    name: 'Aisha Patel',
+    email: 'aisha.p@university.edu',
+    college: 'Carnegie Mellon University',
+    graduationYear: 2023,
+    skills: ['UI/UX Design', 'Figma', 'React', 'HTML/CSS'],
+    bio: 'UI/UX designer with front-end development skills',
+    profilePicture: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    linkedIn: 'https://linkedin.com/in/aishap',
+    github: 'https://github.com/aishap',
+  },
+  {
+    id: 'st-5',
+    name: 'Jordan Chen',
+    email: 'jchen@university.edu',
+    college: 'Harvard University',
+    graduationYear: 2025,
+    skills: ['iOS Development', 'Swift', 'Firebase', 'UX Research'],
+    bio: 'Mobile app developer focusing on iOS',
+    profilePicture: 'https://images.pexels.com/photos/1933873/pexels-photo-1933873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    linkedIn: 'https://linkedin.com/in/jordanchen',
+    github: 'https://github.com/jordanchen',
+  }
+];
+
+// Mock Gigs
+export const mockGigs: Gig[] = [
+  {
+    id: 'g-1',
+    startupId: 's-1',
+    title: 'Frontend Developer Intern',
+    description: 'Join our team to build modern web applications using React and TypeScript. You will work closely with our senior developers to implement UI components and integrate with our backend APIs.',
+    skills: ['React', 'TypeScript', 'HTML/CSS', 'Git'],
+    stipend: 1500,
+    duration: '3 months',
+    location: 'San Francisco, CA',
+    remote: true,
+    type: 'internship',
+    deadline: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString(),
+    status: 'active',
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    applications: 3,
+    hasAssessment: true,
+  },
+  {
+    id: 'g-2',
+    startupId: 's-1',
+    title: 'Data Science Intern',
+    description: 'Help us analyze user data and build predictive models. You will work with our data science team to extract insights from our dataset and contribute to our machine learning pipeline.',
+    skills: ['Python', 'Machine Learning', 'SQL', 'Data Visualization'],
+    stipend: 1800,
+    duration: '6 months',
+    location: 'San Francisco, CA',
+    remote: true,
+    type: 'internship',
+    deadline: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString(),
+    status: 'active',
+    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    applications: 2,
+  },
+  {
+    id: 'g-3',
+    startupId: 's-2',
+    title: 'Sustainability Researcher',
+    description: 'Research and analyze environmental impact data for our green technology solutions. You will compile reports and help identify opportunities for improvement in our sustainability practices.',
+    skills: ['Research', 'Data Analysis', 'Environmental Science', 'Report Writing'],
+    stipend: 1200,
+    duration: '4 months',
+    location: 'Austin, TX',
+    remote: false,
+    type: 'part-time',
+    deadline: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000).toISOString(),
+    status: 'active',
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    applications: 1,
+  }
+];
+
+// Mock Applications
+export const mockApplications: Application[] = [
+  {
+    id: 'a-1',
+    gigId: 'g-1',
+    studentId: 'st-1',
+    status: 'applied',
+    coverLetter: 'I am excited to apply for this position as it aligns perfectly with my skills and career goals...',
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    student: mockStudents[0],
+    testScore: 85,
+    testCompleted: true,
+  },
+  {
+    id: 'a-2',
+    gigId: 'g-1',
+    studentId: 'st-4',
+    status: 'applied',
+    coverLetter: 'With my background in UI/UX design and front-end development, I believe I can contribute significantly...',
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    student: mockStudents[3],
+    testScore: 92,
+    testCompleted: true,
+  },
+  {
+    id: 'a-3',
+    gigId: 'g-1',
+    studentId: 'st-3',
+    status: 'applied',
+    coverLetter: 'I am interested in this position as it would allow me to apply my React skills in a professional setting...',
+    createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+    student: mockStudents[2],
+    testCompleted: false,
+  },
+  {
+    id: 'a-4',
+    gigId: 'g-2',
+    studentId: 'st-2',
+    status: 'shortlisted',
+    coverLetter: 'As a data science student with experience in machine learning, I am excited about this opportunity...',
+    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+    student: mockStudents[1],
+  },
+  {
+    id: 'a-5',
+    gigId: 'g-2',
+    studentId: 'st-5',
+    status: 'applied',
+    coverLetter: 'Although my background is in mobile development, I have been studying data science and would love to gain experience...',
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    student: mockStudents[4],
+  },
+  {
+    id: 'a-6',
+    gigId: 'g-3',
+    studentId: 'st-2',
+    status: 'applied',
+    coverLetter: 'I am passionate about sustainability and would love to contribute to your research efforts...',
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    student: mockStudents[1],
+  }
+];
