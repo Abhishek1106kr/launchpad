@@ -127,7 +127,7 @@ project/
 ---
 
 ## 👨‍💻 Contributors
-
+- Aamir Khan 
 - Abhishek Kumar Chauhan  
-- Aamir Khan  
+-Devansh Verma  
 (And other awesome team members 🚀)
