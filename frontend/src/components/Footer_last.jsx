@@ -1,9 +1,9 @@
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import Logo from './Logo';
 import React from 'react';
-import './Footer.css';
+import './Footer_last.css';
 
-const Footer = () => {
+const Footer_last = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -118,4 +118,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer_last;

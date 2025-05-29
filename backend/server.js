@@ -1,71 +1,35 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require("express")
+const mongoose = require('mongoose')
+const cors = require("cors")
+require('dotenv').config();
+
 const app = express();
 
-const signup = require("./routes/signup");
-const login = require("./routes/login");
-const firebaseAuth = require("./routes/firebaseAuth"); // Add Firebase auth routes
+const signup = require('./routes/signup')
+const login = require('./routes/login')
 
-const cors = require("cors");
-require("dotenv").config();
+app.use(cors())
+app.use(express.json())
 
-app.use(cors());
-app.use(express.json());
-
-// Register routes
-app.use("/api/auth", signup);
-app.use("/api/auth", login);
-app.use("/api/auth", firebaseAuth); // Register Firebase auth routes
-
-// Add a simple route to verify the server is working
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
-
-// Debugging route to display all registered routes
-app.get("/api/routes", (req, res) => {
-  const routes = [];
-  app._router.stack.forEach((middleware) => {
-    if (middleware.route) {
-      // Route directly on the app
-      routes.push({
-        path: middleware.route.path,
-        methods: Object.keys(middleware.route.methods),
-      });
-    } else if (middleware.name === "router") {
-      // Router middleware
-      middleware.handle.stack.forEach((handler) => {
-        if (handler.route) {
-          const path = handler.route.path;
-          const basePath = middleware.regexp
-            .toString()
-            .replace("/^\\", "")
-            .replace("\\/?(?=\\/|$)/i", "")
-            .replace(/\\\//g, "/");
-
-          routes.push({
-            path: basePath + path,
-            methods: Object.keys(handler.route.methods),
-          });
-        }
-      });
+// Simplified MongoDB connection - remove all deprecated options
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log("✅ MongoDB is connected");
+        
+        // Set up routes after successful DB connection
+        app.use('/api/auth', signup);
+        app.use('/api/auth', login);
+        
+    } catch (err) {
+        console.log("❌ MongoDB connection error:", err);
     }
-  });
+};
 
-  res.json(routes);
-});
+connectDB();
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("✅ mongodb is connected");
-  })
-  .catch((err) => {
-    console.log("the error be :-> ", err);
-  });
-
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5002
 
 app.listen(PORT, () => {
-  console.log(`The server is running on http://localhost:${PORT}`);
-});
+    console.log(`The server is running on http://localhost:${PORT}`)
+})
