@@ -1,81 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-import React from 'react';
-
-
-const testimonials = [
-  {
-    id: 1,
-    content:
-      'LaunchPad helped me land my dream internship at a tech startup. The skills assessment feature helped me showcase my abilities beyond just my resume.',
-    name: 'Alex Johnson',
-    role: 'Computer Science Student',
-    avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    rating: 5,
-  },
-  {
-    id: 2,
-    content:
-      'As a design student, I was able to find several freelance projects through LaunchPad that helped me build my portfolio while earning money.',
-    name: 'Sarah Williams',
-    role: 'UI/UX Design Student',
-    avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    rating: 5,
-  },
-  {
-    id: 3,
-    content:
-      'The hackathons I discovered through LaunchPad connected me with like-minded peers and we even won first place in a national competition!',
-    name: 'Michael Chen',
-    role: 'Engineering Student',
-    avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    rating: 4,
-  },
-  {
-    id: 4,
-    content:
-      'LaunchPad made it easy for our startup to find talented students for our projects. The skill verification system ensured we got quality candidates.',
-    name: 'Emily Rodriguez',
-    role: 'Startup Founder',
-    avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    rating: 5,
-  },
-];
+import { useNavigate } from 'react-router-dom';
 
 const TestimonialsSection = () => {
+  const [testimonials, setTestimonials] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:5002/api/testimonials")
+      .then(res => res.json())
+      .then(setTestimonials)
+      .catch(() => setTestimonials([]));
+  }, []);
+  
 
   const minSwipeDistance = 50;
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
+  const handlePrev = () => setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  const handleNext = () => setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  const handleTouchStart = (e) => setTouchStart(e.targetTouches[0].clientX);
+  const handleTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      handleNext();
-    } else if (isRightSwipe) {
-      handlePrev();
-    }
+    if (distance > minSwipeDistance) handleNext();
+    else if (distance < -minSwipeDistance) handlePrev();
   };
 
   return (
@@ -87,6 +39,12 @@ const TestimonialsSection = () => {
           <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
             Hear from students and startups who have found success with LaunchPad.
           </p>
+          <button
+            className="mt-6 px-5 py-2 bg-green-600 text-white rounded-lg font-semibold shadow hover:bg-green-700 transition"
+            onClick={() => navigate("/add-testimonial")}
+          >
+            Add Testimonial
+          </button>
         </div>
 
         <div
@@ -101,7 +59,7 @@ const TestimonialsSection = () => {
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
               {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
+                <div key={testimonial._id || testimonial.id} className="w-full flex-shrink-0 px-4">
                   <div className="bg-white rounded-lg shadow-lg p-8">
                     <div className="flex items-center space-x-1 mb-4">
                       {[...Array(5)].map((_, i) => (

@@ -27,7 +27,7 @@ function Login() {
 
       const token = res.data.token;
       if (token) {
-        localStorage.setItem("saveToken_ECommerce", token);
+        localStorage.setItem("token", token);
         alert("Login Successful ✅");
         navigate("/mainpage"); // <-- Navigate to main page after login
       }

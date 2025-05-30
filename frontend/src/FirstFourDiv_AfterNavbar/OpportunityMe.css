@@ -1,0 +1,79 @@
+.opportunity-me-page {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    padding: 2rem 1rem;
+  }
+  .opportunity-me-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(31,38,135,0.09);
+    padding: 2.5rem 2rem;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .opportunity-me-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  .opportunity-me-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0.5rem 0 1.5rem 0;
+    color: #388e3c;
+    font-weight: 500;
+  }
+  .opportunity-me-desc {
+    margin-bottom: 1.5rem;
+    color: #222;
+    text-align: center;
+  }
+  .opportunity-me-card h1 {
+    font-size: 2rem;
+    margin: 0.2rem 0 0.2rem 0;
+  }
+  .opportunity-me-card h2 {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 0.2rem;
+  }
+  .opportunity-me-card h3 {
+    margin: 1.2rem 0 0.5rem 0;
+    font-size: 1.05rem;
+    color: #4caf50;
+  }
+  .opportunity-me-card ul {
+    margin: 0 0 1rem 0;
+    padding-left: 1.2rem;
+    color: #222;
+  }
+  .opportunity-me-back {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    transition: background 0.18s;
+  }
+  .opportunity-me-back:hover {
+    background: #388e3c;
+  }
+  .opportunity-me-loading, .opportunity-me-error {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 1.2rem;
+    color: #888;
+  }
+  

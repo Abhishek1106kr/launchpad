@@ -1,10 +1,11 @@
-const express = require('express')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const router = express.Router()
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const verifyToken = require('../middleware/verifyToken');
+const User = require('../models/user');
+const router = express.Router();
 
-const User = require('../models/user')
-
+// POST /api/auth/login (existing)
 router.post('/login', async(req, res) => {
     const { email, password } = req.body;
 
@@ -14,13 +15,11 @@ router.post('/login', async(req, res) => {
 
     try {
         const user = await User.findOne({ email })
-
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' })
         }
 
         const isMatch = await bcrypt.compare(password, user.password)
-
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' })
         }
@@ -35,6 +34,21 @@ router.post('/login', async(req, res) => {
         console.log("Login error:", err)
         res.status(500).json({ error: 'Server error' });
     }
-})
+});
+
+// GET /api/auth/login (returns user info if token is valid)
+// GET /api/auth/me (returns user info if token is valid)
+router.get('/me', verifyToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('name email avatar');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 
 module.exports = router;

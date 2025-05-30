@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 
 const router = express.Router();
 
+// Signup route (already present)
 router.post('/signup', async(req, res) => {
     const { name, email, password, phone } = req.body
 
@@ -34,5 +35,17 @@ router.post('/signup', async(req, res) => {
         res.status(500).json({ error: 'Server error' })
     }
 })
+
+// GET all users (for dashboard)
+router.get('/users', async (req, res) => {
+    try {
+        // Exclude password field for security
+        const users = await User.find({}, { password: 0, __v: 0 });
+        res.json(users);
+    } catch (err) {
+        console.error("Fetch users error:", err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 
 module.exports = router;
