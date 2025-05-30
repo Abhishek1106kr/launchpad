@@ -1,0 +1,319 @@
+:root {
+  --primary-color: #4caf50;
+  --primary-light: #81c784;
+  --primary-dark: #388e3c;
+  --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+  --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+  --text-dark: #222;
+  --text-medium: #555;
+  --text-light: #777;
+  --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-border: rgba(255, 255, 255, 0.4);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+  --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+}
+
+.find-jobs-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: var(--bg-gradient);
+}
+
+.search-section {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.search-section h1 {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.search-filters {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.search-input {
+  width: 400px;
+  padding: 15px 20px;
+  border-radius: var(--border-radius-md);
+  font-size: 16px;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  background-color: white;
+}
+
+.category-select {
+  padding: 15px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--border-radius-md);
+  font-size: 16px;
+  background-color: var(--card-bg);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+}
+
+.companies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.company-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-normal);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.company-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-md);
+  object-fit: contain;
+  box-shadow: var(--shadow-sm);
+  background-color: white;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.company-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius-md);
+}
+
+.company-info {
+  flex: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.company-info h2 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin: 0 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.location {
+  color: var(--text-medium);
+  margin: 0 0 10px 0;
+  font-size: 0.9rem;
+}
+
+.category-badge {
+  background: var(--primary-gradient);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.company-description {
+  color: var(--text-medium);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.job-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius-md);
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.detail-value {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.requirements-section,
+.benefits-section {
+  margin-bottom: 20px;
+}
+
+.requirements-section h3,
+.benefits-section h3 {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.requirements-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requirements-section li {
+  color: var(--text-medium);
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.requirements-section li::before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+}
+
+.benefits-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.benefit-tag {
+  background: rgba(76, 175, 80, 0.1);
+  color: var(--primary-dark);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.apply-button {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  margin-top: 20px;
+}
+
+.apply-button:hover {
+  background: var(--primary-hover-gradient);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.apply-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 400px;
+    background-color: white !important;
+    color: #222 !important;
+    
+  }
+
+  .category-select {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .companies-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .job-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-gradient: linear-gradient(135deg, #1a2940, #121212);
+    --card-bg: rgba(30, 30, 30, 0.8);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-dark: #f0f0f0;
+    --text-medium: #c0c0c0;
+    --text-light: #a0a0a0;
+  }
+
+  .search-input,
+  .category-select {
+    background-color: white !important;
+    color: #222 !important;
+    
+  }
+
+  .job-details {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .benefit-tag {
+    background: rgba(76, 175, 80, 0.2);
+  }
+}

@@ -20,8 +20,6 @@ const userSchema = new mongoose.Schema({
     }
   ],
   resume: String,
-  
-    
   motivation: String,
   skills: [String],
   careerGoals: String,

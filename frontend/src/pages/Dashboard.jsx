@@ -261,7 +261,7 @@ export default function Dashboard() {
                 <textarea name="bio" value={form.bio} onChange={handleChange} />
               </label>
               <label>
-                GitHub
+                GitHub   
                 <input
                   className="input-box"
                   name="github"
@@ -310,7 +310,7 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Right Box: Onboarding Questions & Certificates/Resume */}
+        {/* Right Box: Onboarding, Certificates, Resume */}
         <div className="dashboard-right-box">
           {onboarding ? (
             <form className="onboarding-form" onSubmit={handleOnboardingSubmit}>
@@ -329,9 +329,7 @@ export default function Dashboard() {
                   {SKILL_OPTIONS.map((skill) => (
                     <span
                       key={skill}
-                      className={`chip ${
-                        onboardingForm.skills.includes(skill) ? "selected" : ""
-                      }`}
+                      className={`chip ${onboardingForm.skills.includes(skill) ? "selected" : ""}`}
                       onClick={() => handleSkillToggle(skill)}
                     >
                       {skill}
@@ -397,45 +395,51 @@ export default function Dashboard() {
           {/* Certificates Section */}
           <div style={{ marginTop: "2rem" }}>
             <h3>Certificates</h3>
-            <div className="dashboard-certificates-list">
-              {(profile.certificates || []).map((cert, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.7rem",
-                    marginBottom: "0.4rem",
-                    background: "#f8fafc",
-                    borderRadius: "8px",
-                    padding: "0.5rem 1rem",
-                  }}
-                >
-                  <span style={{ fontWeight: 500 }}>{cert.name}</span>
-                  <a
-                    href={cert.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="dashboard-certificate-link"
-                    style={{ color: "#007bff" }}
-                  >
-                    View
-                  </a>
-                  <button
-                    onClick={() => handleRemoveCert(cert.url)}
+            {(profile.certificates && profile.certificates.length > 0) ? (
+              <div className="dashboard-certificates-list">
+                {profile.certificates.map((cert, idx) => (
+                  <div
+                    key={idx}
                     style={{
-                      color: "#d32f2f",
-                      border: "none",
-                      background: "none",
-                      cursor: "pointer",
-                      fontWeight: 500,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.7rem",
+                      marginBottom: "0.4rem",
+                      background: "#f8fafc",
+                      borderRadius: "8px",
+                      padding: "0.5rem 1rem",
                     }}
                   >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
+                    <span style={{ fontWeight: 500 }}>{cert.name}</span>
+                    <a
+                      href={cert.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="dashboard-certificate-link"
+                      style={{ color: "#007bff" }}
+                    >
+                      View
+                    </a>
+                    <button
+                      onClick={() => handleRemoveCert(cert.url)}
+                      style={{
+                        color: "#d32f2f",
+                        border: "none",
+                        background: "none",
+                        cursor: "pointer",
+                        fontWeight: 500,
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ color: "#888", marginBottom: "0.7rem" }}>
+                No certificates added yet.
+              </div>
+            )}
             {!showCertForm && (
               <button
                 className="dashboard-add-btn"
