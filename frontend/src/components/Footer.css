@@ -1,4 +1,4 @@
-/* Footer.css */
+/* CallToActionSection.css */
 :root {
   --primary-color: #4caf50;
   --primary-light: #81c784;
@@ -24,121 +24,119 @@
   --border-radius-full: 50%;
 }
 
-.footer {
-  background: var(--card-bg); /* bg-gray-900, changing to glassmorphic */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid var(--card-border); /* Add a border */
-  color: var(--text-dark); /* text-white, changing to dark text */
-  padding-top: 4rem; /* Increased top padding */
-  padding-bottom: 2rem; /* Adjusted bottom padding */
+.cta-section {
+  padding-top: 5rem; /* Increased padding */
+  padding-bottom: 5rem; /* Increased padding */
+  background: var(--bg-gradient); /* Consistent background */
+  overflow: hidden;
+  position: relative;
 }
 
-.footer-container {
+.cta-container {
   max-width: 1280px; /* max-w-7xl */
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem; /* Increased horizontal padding */
   padding-right: 1.5rem; /* Increased horizontal padding */
-  padding-top: 0; /* Remove top padding as it's on the footer */
-  padding-bottom: 0; /* Remove bottom padding as it's on the footer */
+  position: relative;
+  z-index: 10;
 }
 
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted min width for responsiveness */
-  gap: 3rem; /* Increased gap */
-  margin-bottom: 3rem; /* Added bottom margin */
-}
-
-@media (min-width: 768px) {
-  .footer-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)); /* md:grid-cols-4 */
-  }
-}
-
-.footer-col {
-  /* col-span-1 md:col-span-1 - handled by grid */
-}
-
-.footer-description {
-  color: var(--text-medium); /* text-gray-400, changing to medium text */
-  font-size: 0.9rem; /* Slightly larger */
-  margin-top: 1rem; /* mt-4 */
-  line-height: 1.6; /* Improved readability */
-}
-
-.social-links {
-  display: flex;
-  gap: 1.5rem; /* Increased gap */
-  margin-top: 1.5rem; /* mt-6 */
-}
-
-.social-link {
-  color: var(--text-medium); /* text-gray-400 */
-  transition: color var(--transition-normal), transform var(--transition-normal); /* Smooth transition */
-}
-
-.social-link:hover {
-  color: var(--primary-dark); /* Darker primary color on hover */
-  transform: translateY(-3px); /* Add slight lift */
-}
-
-.footer-heading {
-  font-size: 1rem; /* Slightly larger */
-  font-weight: 700; /* Bolder */
-  color: var(--text-dark); /* text-gray-300, changing to dark text */
-  text-transform: uppercase;
-  letter-spacing: 0.05em; /* tracking-wider */
-  margin-bottom: 1.5rem; /* Added bottom margin */
-}
-
-.footer-links-list {
-  margin-top: 0; /* Remove top margin as heading has bottom margin */
-  list-style: none;
-  padding: 0;
-  space-y: 0.75rem; /* Increased space between items */
-}
-
-.footer-link-item {
-  /* li styling */
-}
-
-.footer-link {
-  color: var(--text-medium); /* text-gray-400 */
-  text-decoration: none;
-  transition: color var(--transition-normal); /* Smooth transition */
-  font-size: 0.9rem; /* Slightly larger font */
-}
-
-.footer-link:hover {
-  color: var(--primary-dark); /* Darker primary color on hover */
-}
-
-.copyright-section {
-  margin-top: 3rem; /* mt-12 */
-  border-top: 1px solid var(--card-border); /* border-t border-gray-800, changing border color */
-  padding-top: 2rem; /* pt-8 */
+.cta-content {
+  max-width: 50rem; /* Slightly wider max width */
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
+  background: var(--card-bg); /* Glassmorphic background */
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 3rem 2rem; /* Added padding */
+  box-shadow: var(--shadow-lg); /* Added shadow */
 }
 
-.copyright-text {
-  color: var(--text-medium); /* text-gray-400 */
-  font-size: 0.875rem; /* text-sm */
+.cta-title {
+  font-size: 2.5rem; /* Adjusted size */
+  font-weight: 800; /* Bolder */
+  color: var(--text-dark); /* text-white, changing to dark text */
+  margin-bottom: 1rem; /* Adjusted margin */
 }
 
-/* Responsive adjustments */
+@media (min-width: 640px) {
+  .cta-title {
+    font-size: 3rem; /* sm:text-4xl */
+  }
+}
+
+.cta-subtitle {
+  margin-top: 1rem; /* mt-4 */
+  font-size: 1.25rem; /* text-xl */
+  color: var(--text-medium); /* text-blue-100, changing to medium text */
+  line-height: 1.6; /* Improved readability */
+  margin-bottom: 2rem; /* Adjusted margin */
+}
+
+.cta-button-wrapper {
+  margin-top: 2rem; /* mt-8 */
+  display: flex;
+  justify-content: center;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.5rem; /* Increased padding */
+  border: none; /* Remove border */
+  border-radius: var(--border-radius-md); /* Slightly larger border radius */
+  box-shadow: var(--shadow-md); /* shadow-md */
+  font-size: 1.125rem; /* Slightly larger font */
+  font-weight: 600; /* Semi-bold */
+  color: white; /* text-blue-700, changing to white for primary button */
+  background: var(--primary-gradient); /* bg-white, changing to primary gradient */
+  transition: all var(--transition-normal); /* Transition all properties */
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  background: var(--primary-hover-gradient); /* hover:bg-blue-50, changing to hover gradient */
+  box-shadow: var(--shadow-lg); /* Add larger shadow on hover */
+  transform: translateY(-3px); /* Add lift effect on hover */
+}
+
+/* Decorative elements - Keeping the logic but adjusting colors/opacity if needed */
+.cta-section .absolute {
+  /* Existing absolute positioning */
+  position: absolute;
+  /* You might adjust colors or opacity here to fit the new scheme if the previous ones clash */
+  /* For example: */
+  /* background: rgba(76, 175, 80, 0.3); */ /* Using primary color with transparency */
+}
+
+.cta-section .bg-purple-500 {
+    background-color: rgba(147, 51, 234, 0.2); /* Adjusted for lower transparency */
+}
+
+.cta-section .bg-blue-500 {
+    background-color: rgba(59, 130, 246, 0.2); /* Adjusted for lower transparency */
+}
+
 @media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjusted min width */
-    gap: 2rem; /* Adjusted gap */
+  .cta-title {
+    font-size: 2rem;
   }
 
-  .footer-heading {
-    margin-bottom: 1rem;
+  .cta-subtitle {
+    font-size: 1rem;
   }
 
-  .footer-links-list {
-    space-y: 0.5rem;
+  .cta-content {
+    padding: 2rem 1rem;
+  }
+
+  .cta-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
   }
 } 
