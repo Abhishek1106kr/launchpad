@@ -1,0 +1,205 @@
+:root {
+    --primary-color: #4caf50;
+    --primary-light: #81c784;
+    --primary-dark: #388e3c;
+    --primary-gradient: linear-gradient(135deg, #4caf50, #66bb6a);
+    --primary-hover-gradient: linear-gradient(135deg, #388e3c, #4caf50);
+    --text-dark: #222;
+    --text-medium: #555;
+    --text-light: #777;
+    --bg-gradient: linear-gradient(135deg, #e0eafc, #cfdef3);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-border: rgba(255, 255, 255, 0.4);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 24px rgba(31, 38, 135, 0.15);
+    --shadow-lg: 0 12px 32px rgba(31, 38, 135, 0.2);
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 20px;
+  }
+  
+  .interview-tips-container {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: var(--bg-gradient);
+  }
+  
+  .interview-tips-header {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .interview-tips-header h1 {
+    font-size: 3rem;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    color: var(--text-medium);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .tips-section {
+    max-width: 1200px;
+    margin: 0 auto 50px;
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .tips-section h2 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .tips-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 3px;
+  }
+  
+  .tips-cards,
+  .resources-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+  
+  .tip-card,
+  .resource-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-normal);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .tip-card:hover,
+  .resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+  }
+  
+  .tip-card h3,
+  .resource-card h3 {
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-light);
+  }
+  
+  .tip-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+  }
+  
+  .tip-card li {
+    color: var(--text-medium);
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+  }
+  
+  .tip-card li::before {
+    content: "•";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .resource-card p {
+    color: var(--text-medium);
+    margin-bottom: 0;
+    line-height: 1.6;
+    margin-top: 15px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .interview-tips-header h1 {
+      font-size: 2.5rem;
+    }
+  
+    .tips-section h2 {
+      font-size: 1.8rem;
+    }
+  
+    .tips-cards,
+    .resources-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Dark Mode Support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-gradient: linear-gradient(135deg, #1a2940, #121212);
+      --card-bg: rgba(30, 30, 30, 0.8);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-dark: #f0f0f0;
+      --text-medium: #c0c0c0;
+      --text-light: #a0a0a0;
+    }
+  
+    .tip-card,
+    .resource-card {
+      background: var(--card-bg);
+    }
+  
+    .tip-card:hover,
+    .resource-card:hover {
+      border-color: var(--primary-color);
+    }
+  
+    .tip-card li::before {
+      color: var(--primary-light);
+    }
+  }

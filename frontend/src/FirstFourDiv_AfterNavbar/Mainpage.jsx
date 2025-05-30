@@ -14,7 +14,7 @@ import {
   Award,
   Layers,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./MainPage.css";
 
 function Mainpage() {
@@ -60,7 +60,7 @@ function Mainpage() {
       title: "Find Jobs",
       description: "Browse through our curated list of opportunities",
       icon: Briefcase,
-      link: "/jobs",
+      link: "/job",
     },
     {
       title: "Upcoming Events",
@@ -130,13 +130,31 @@ function Mainpage() {
     }
   };
 
-  // Resource Card (for carousel)
+  const navigate = useNavigate();
+
+  // Resource Card (for carousel) - Updated with navigation logic
   const ResourceCard = ({ resource }) => {
     // Dynamically get the icon component
     const iconMap = { BookOpen, TrendingUp, Users, Layers, Globe, Award };
     const Icon = iconMap[resource.icon] || BookOpen;
+    
+    const handleResourceClick = (e) => {
+      e.preventDefault();
+      
+      // Check if it's Interview Preparation or Resume related content
+      const title = resource.title.toLowerCase();
+      if (title.includes('interview') && title.includes('preparation')) {
+        navigate('/InterviewPreparation');
+      } else if (title.includes('resume')) {
+        navigate('/resumePreparation');
+      } else {
+        // For other resources, navigate to a generic resource page or handle differently
+        navigate(`/resource/${resource.title.replace(/\s+/g, '-').toLowerCase()}`);
+      }
+    };
+
     return (
-      <Link to={`/resource/${resource._id}`} className="resource-card">
+      <div className="resource-card" onClick={handleResourceClick} style={{ cursor: 'pointer' }}>
         <div className="resource-icon">
           <Icon size={24} />
         </div>
@@ -145,8 +163,19 @@ function Mainpage() {
           <p>{resource.description}</p>
         </div>
         <ArrowRight size={20} className="resource-arrow" />
-      </Link>
+      </div>
     );
+  };
+
+  // --- FIXED QUICK LINKS HANDLER ---
+  const handleQuickLinkClick = (e, link) => {
+    if (link.startsWith("#")) {
+      handleSmoothScroll(e, link);
+    } else if (link.startsWith("/")) {
+      e.preventDefault();
+      navigate(link);
+    }
+    // For external links, let default behavior happen
   };
 
   return (
@@ -184,9 +213,9 @@ function Mainpage() {
               key={index}
               className="quick-link-card"
               onClick={
-                link.link.startsWith("#")
-                  ? (e) => handleSmoothScroll(e, link.link)
-                  : null
+                link.link.startsWith("#") || link.link.startsWith("/")
+                  ? (e) => handleQuickLinkClick(e, link.link)
+                  : undefined
               }
             >
               <div className="quick-link-icon">
@@ -309,7 +338,7 @@ function Mainpage() {
             style={{ display: "flex", gap: "2rem", justifyContent: "center" }}
           >
             {resources.slice(resIndex, resIndex + 2).map((resource, idx) => (
-              <ResourceCard key={resource._id || idx} resource={resource} />
+              <ResourceCard key={idx} resource={resource} />
             ))}
           </div>
           <button

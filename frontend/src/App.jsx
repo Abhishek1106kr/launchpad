@@ -20,6 +20,9 @@ import OpportunitiesSection from './components/OpportunitiesSection';
 import TestimonialsSection from './components/TestimonialsSection';
 // import JobListingsPage from './pages/JobListingsPage';
 import TestimonialForm from './pages/TestimonialForm';
+import Job from './pages/Job'
+import InterviewPreparation from './pages/InterviewPreparation'
+import ResumePreparation from './pages/ResumePreparation'
 
 const ProtectedRoute = ({ children }) => (
   <div className="min-h-screen bg-white font-[Inter]">
@@ -54,6 +57,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/event/:id" element={<ViewDetails />} /> {/* <-- Added route */}
         <Route path="/" element={<Navigate to="/mainpage" replace />} />
+        <Route path="/job" element={<Job />} />
+        <Route path="/interviewPreparation" element={<InterviewPreparation />} />
+        <Route path="/resumePreparation" element={<ResumePreparation />} />
+
       </Routes>
     </BrowserRouter>
   );
