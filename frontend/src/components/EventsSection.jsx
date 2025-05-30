@@ -1,42 +1,9 @@
-import { Calendar, Clock, MapPin } from 'lucide-react';
-import { useState } from 'react';
-import React from 'react';
+import { Calendar, Clock, MapPin } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-
-const events = [
-  {
-    id: 1,
-    title: 'TechCrunch Hackathon 2025',
-    description: 'Help build our next-generation web application using React, TypeScript, and Tailwind CSS.',
-    image: 'https://images.pexels.com/photos/2182973/pexels-photo-2182973.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    date: 'May 15-17, 2025',
-    location: 'San Francisco, CA',
-    time: '9:00 AM - 5:00 PM',
-    category: 'Hackathon',
-  },
-  {
-    id: 2,
-    title: 'AI Summit for Students',
-    description: 'Learn about the latest trends in artificial intelligence and machine learning from industry experts.',
-    image: 'https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    date: 'June 5, 2025',
-    location: 'Online',
-    time: '10:00 AM - 4:00 PM',
-    category: 'Workshop',
-  },
-  {
-    id: 3,
-    title: 'StartUp Weekend',
-    description: 'Turn your idea into a startup in just 54 hours with mentorship from successful entrepreneurs.',
-    image: 'https://images.pexels.com/photos/3184302/pexels-photo-3184302.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    date: 'July 10-12, 2025',
-    location: 'Boston, MA',
-    time: '6:00 PM - 9:00 PM',
-    category: 'Networking',
-  },
-];
-
-const EventCard = ({ event }) => (
+const EventCard = ({ event, onRegister }) => (
   <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl bg-white group">
     <div className="relative h-48 overflow-hidden">
       <img
@@ -49,7 +16,9 @@ const EventCard = ({ event }) => (
       </div>
     </div>
     <div className="flex-1 p-6 flex flex-col">
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{event.title}</h3>
+      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+        {event.title}
+      </h3>
       <p className="text-gray-600 mb-4 flex-grow">{event.description}</p>
       <div className="mt-auto space-y-2">
         <div className="flex items-center text-gray-700">
@@ -65,57 +34,116 @@ const EventCard = ({ event }) => (
           <span>{event.location}</span>
         </div>
       </div>
-      <button className="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium py-2 px-4 rounded transition-colors duration-200 flex items-center justify-center">
+      <Link
+        to={`/event/${event._id}`}
+        className="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium py-2 px-4 rounded transition-colors duration-200 flex items-center justify-center"
+      >
         <span>View Details</span>
+      </Link>
+      <button
+        className="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200 flex items-center justify-center"
+        onClick={() => onRegister(event._id)}
+      >
+        Register
       </button>
     </div>
   </div>
 );
 
 const EventsSection = () => {
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState("all");
+  const [events, setEvents] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:5002/api/trendingevents")
+      .then((res) => res.json())
+      .then(setEvents)
+      .catch(() => setEvents([]));
+  }, []);
+
+  // Register handler
+  const handleRegister = async (eventId) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please log in to register.");
+      navigate("/login");
+      return;
+    }
+    try {
+      const res = await fetch("http://localhost:5002/api/event-register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ eventId }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success("Registration email sent to your inbox!");
+      } else {
+        toast.error(data.error || "Failed to register.");
+      }
+    } catch (err) {
+      toast.error("Network error. Try again.");
+    }
+  };
 
   return (
     <section id="events" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-base font-semibold text-blue-600 tracking-wide uppercase">Events</h2>
-          <p className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">Trending Events</p>
+          <h2 className="text-base font-semibold text-blue-600 tracking-wide uppercase">
+            Events
+          </h2>
+          <p className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">
+            Trending Events
+          </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-            Discover hackathons, workshops, and networking events to boost your career.
+            Discover hackathons, workshops, and networking events to boost your
+            career.
           </p>
         </div>
 
         <div className="mt-8 flex justify-center space-x-2">
           <button
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-              activeTab === 'all' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+              activeTab === "all"
+                ? "bg-blue-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-100"
             }`}
-            onClick={() => setActiveTab('all')}
+            onClick={() => setActiveTab("all")}
           >
             All
           </button>
           <button
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-              activeTab === 'hackathon' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+              activeTab === "hackathon"
+                ? "bg-blue-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-100"
             }`}
-            onClick={() => setActiveTab('hackathon')}
+            onClick={() => setActiveTab("hackathon")}
           >
             Hackathons
           </button>
           <button
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-              activeTab === 'workshop' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+              activeTab === "workshop"
+                ? "bg-blue-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-100"
             }`}
-            onClick={() => setActiveTab('workshop')}
+            onClick={() => setActiveTab("workshop")}
           >
             Workshops
           </button>
           <button
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-              activeTab === 'networking' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+              activeTab === "networking"
+                ? "bg-blue-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-100"
             }`}
-            onClick={() => setActiveTab('networking')}
+            onClick={() => setActiveTab("networking")}
           >
             Networking
           </button>
@@ -123,19 +151,18 @@ const EventsSection = () => {
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {events
-            .filter((event) => activeTab === 'all' || event.category.toLowerCase() === activeTab)
+            .filter(
+              (event) =>
+                activeTab === "all" ||
+                event.category.toLowerCase() === activeTab
+            )
             .map((event) => (
-              <EventCard key={event.id} event={event} />
+              <EventCard
+                key={event._id}
+                event={event}
+                onRegister={handleRegister}
+              />
             ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <a
-            href="#"
-            className="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
-          >
-            View All Events
-          </a>
         </div>
       </div>
     </section>

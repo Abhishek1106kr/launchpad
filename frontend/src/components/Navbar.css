@@ -243,3 +243,94 @@
 }
 
 /* Add more styles for menu items, buttons, mobile menu etc. later */ 
+
+.avatar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.avatar-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4caf50;
+  transition: box-shadow 0.2s;
+}
+
+.avatar-btn:focus .avatar-img,
+.avatar-btn:hover .avatar-img {
+  box-shadow: 0 0 0 2px #388e3c33;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: -150px;
+  top: 44px; /* closer to the avatar */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(31,38,135,0.13);
+  min-width: 180px;
+  z-index: 100;
+  padding: 0.7rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dropdown-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid #e0eafc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4caf50;
+}
+
+.dropdown-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.dropdown-email {
+  font-size: 0.87rem;
+  color: #388e3c;
+  word-break: break-all;
+}
+
+.dropdown-dashboard {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.5rem 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: background 0.18s;
+}
+
+.dropdown-dashboard:hover {
+  background: #388e3c;
+}
+
+.mobile-dropdown {
+  position: fixed;
+  top: 70px;
+  right: 12px;
+  left: unset;
+  min-width: 180px;
+  box-shadow: 0 6px 24px rgba(31,38,135,0.13);
+}
